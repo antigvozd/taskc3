@@ -1,17 +1,18 @@
 import express from 'express';
-import cors from 'cors';
+import canonize from './customize';
 
 const app = express();
-app.use(cors());
 app.get('/', (req, res) => {
   res.json({
     hello: 'JS World',
   });
 });
 
-app.get('/task2a', (req, res) => {
-	const sum = (+req.query.a || 0) + (+req.query.b || 0);
-	res.send(sum.toString());
+app.get('/task2b', (req, res) => {
+	res.json({
+		url: req.query.url,
+		username: canonize(req.query.url)
+	});
 });
 
 app.listen(3000, () => {
