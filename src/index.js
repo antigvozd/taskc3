@@ -1,18 +1,18 @@
 import express from 'express';
 import canonize from './customize';
+import cors from 'cors';
 
 const app = express();
+app.use(cors());
 app.get('/', (req, res) => {
   res.json({
     hello: 'JS World',
   });
 });
 
-app.get('/task2b', (req, res) => {
-	res.json({
-		url: req.query.url,
-		username: canonize(req.query.url)
-	});
+app.get('/task2c', (req, res) => {
+	const username = req.query.fullname != undefined ? canonize(req.query.fullname) : 'Invalid username';
+	res.send(username);
 });
 
 app.listen(3000, () => {
